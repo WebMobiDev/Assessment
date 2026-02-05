@@ -1,0 +1,8 @@
+C:\Dev\Assessment\tests\Assessment.Api.IntegrationTests\bin\Debug\net9.0\.msCoverageSourceRootsMapping_Assessment.Api.IntegrationTests
+C:\Dev\Assessment\tests\Assessment.Api.IntegrationTests\bin\Debug\net9.0\CoverletSourceRootsMapping_Assessment.Api.IntegrationTests
+C:\Dev\Assessment\tests\Assessment.Api.IntegrationTests\obj\Debug\net9.0\Assessment.Api.IntegrationTests.csproj.AssemblyReference.cache
+C:\Dev\Assessment\tests\Assessment.Api.IntegrationTests\obj\Debug\net9.0\Assessment.Api.IntegrationTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev\Assessment\tests\Assessment.Api.IntegrationTests\obj\Debug\net9.0\Assessment.Api.IntegrationTests.AssemblyInfoInputs.cache
+C:\Dev\Assessment\tests\Assessment.Api.IntegrationTests\obj\Debug\net9.0\Assessment.Api.IntegrationTests.AssemblyInfo.cs
+C:\Dev\Assessment\tests\Assessment.Api.IntegrationTests\obj\Debug\net9.0\Assessment.Api.IntegrationTests.csproj.CoreCompileInputs.cache
+C:\Dev\Assessment\tests\Assessment.Api.IntegrationTests\obj\Debug\net9.0\Assessment.Api.IntegrationTests.sourcelink.json

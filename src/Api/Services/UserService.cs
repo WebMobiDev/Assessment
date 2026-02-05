@@ -1,5 +1,6 @@
 using Assessment.Api.Dtos;
 using Assessment.Domain.Entities;
+using Assessment.Api.Errors;
 using Assessment.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,14 +61,16 @@ public sealed class UserService
         req.DisplayName = req.DisplayName.Trim();
 
         var exists = await _db.Users.AnyAsync(u => u.Email == req.Email, ct);
-        if (exists) throw new InvalidOperationException("Email already exists.");
+        if (exists)
+            throw new ConflictException("Email already exists.");
 
         // validate groups (if provided)
         if (req.GroupIds.Count > 0)
         {
             var validGroupCount = await _db.Groups.CountAsync(g => req.GroupIds.Contains(g.Id), ct);
             if (validGroupCount != req.GroupIds.Distinct().Count())
-                throw new InvalidOperationException("One or more GroupIds are invalid.");
+                throw new BadRequestException("One or more GroupIds are invalid.");
+
         }
 
         var user = new User
@@ -100,7 +103,9 @@ public sealed class UserService
         {
             var newEmail = req.Email.Trim();
             var emailExists = await _db.Users.AnyAsync(u => u.Email == newEmail && u.Id != id, ct);
-            if (emailExists) throw new InvalidOperationException("Email already exists.");
+            if (emailExists)
+                throw new ConflictException("Email already exists.");
+
             user.Email = newEmail;
         }
 
@@ -116,7 +121,7 @@ public sealed class UserService
             var distinct = req.GroupIds.Distinct().ToList();
             var validGroupCount = await _db.Groups.CountAsync(g => distinct.Contains(g.Id), ct);
             if (validGroupCount != distinct.Count)
-                throw new InvalidOperationException("One or more GroupIds are invalid.");
+                throw new BadRequestException("One or more GroupIds are invalid.");
 
             user.UserGroups.Clear();
             foreach (var gid in distinct)
