@@ -1,17 +1,16 @@
-using Assessment.Api.Services;
 using Assessment.Api.Middleware;
+using Assessment.Api.Services;
 using Assessment.Infrastructure.Data;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Controllers
 builder.Services.AddControllers();
 
-// FluentValidation (these are IServiceCollection extensions)
+// FluentValidation
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
@@ -29,9 +28,10 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
-// Auto-apply migrations on startup (dev/demo convenience)
-using (var scope = app.Services.CreateScope())
+// Auto-apply migrations on startup
+if (!app.Environment.IsEnvironment("Test"))
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
 }

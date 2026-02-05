@@ -1,4 +1,3 @@
-// Domain/Entities/GroupPermission.cs
 namespace Assessment.Domain.Entities;
 
 public class GroupPermission

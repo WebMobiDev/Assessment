@@ -1,4 +1,3 @@
-// Domain/Entities/User.cs
 namespace Assessment.Domain.Entities;
 
 public class User

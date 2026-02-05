@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-
 namespace Assessment.Api.IntegrationTests;
 
 public sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
@@ -16,14 +15,16 @@ public sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        builder.UseEnvironment("Test");
+
         builder.ConfigureServices(services =>
         {
-
+            // Optional: quiet logs during tests
             services.AddLogging(lb =>
-        {
-            lb.ClearProviders();
-            lb.SetMinimumLevel(LogLevel.Warning);
-        });
+            {
+                lb.ClearProviders();
+                lb.SetMinimumLevel(LogLevel.Warning);
+            });
 
             // Remove SQL Server registration
             var descriptor = services.SingleOrDefault(
@@ -32,16 +33,19 @@ public sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
             if (descriptor is not null)
                 services.Remove(descriptor);
 
-            // In-memory SQLite (keep connection open)
+            // In-memory SQLite (keep connection open for the app lifetime)
             _connection = new SqliteConnection("DataSource=:memory:");
             _connection.Open();
 
             services.AddDbContext<AppDbContext>(opt => opt.UseSqlite(_connection));
 
-            // Create schema
+            // Build provider and initialize schema ONCE
             var sp = services.BuildServiceProvider();
             using var scope = sp.CreateScope();
+
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            // For in-memory SQLite tests, EnsureCreated is simplest and avoids migration re-run issues
             db.Database.EnsureCreated();
         });
     }

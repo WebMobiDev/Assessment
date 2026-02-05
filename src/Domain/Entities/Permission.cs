@@ -1,4 +1,3 @@
-// Domain/Entities/Permission.cs
 namespace Assessment.Domain.Entities;
 
 public class Permission 

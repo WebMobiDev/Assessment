@@ -1,4 +1,3 @@
-// Domain/Entities/Group.cs
 namespace Assessment.Domain.Entities;
 
 public class Group

@@ -1,4 +1,3 @@
-// Domain/Entities/UserGroup.cs
 namespace Assessment.Domain.Entities;
 
 public class UserGroup
