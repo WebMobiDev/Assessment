@@ -1,0 +1,34 @@
+@model List<Assessment.Web.Models.UserVm>
+
+<h2>Users</h2>
+
+<p>
+    <a asp-action="Create">Add User</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Active</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var u in Model)
+{
+        <tr>
+            <td>@u.Id</td>
+            <td>@u.Email</td>
+            <td>@u.DisplayName</td>
+            <td>@u.IsActive</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@u.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@u.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
