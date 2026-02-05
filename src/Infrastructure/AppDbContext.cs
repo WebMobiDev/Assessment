@@ -1,4 +1,4 @@
-// Infrastructure/Data/AppDbContext.cs
+// Infrastructure/AppDbContext.cs
 using Assessment.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,7 +34,7 @@ public class AppDbContext : DbContext
                 .HasMaxLength(200)
                 .IsRequired();
 
-            e.Property(x => x.CreatedUtc).HasPrecision(3);
+            e.Property(x => x.CreatedAt).HasPrecision(3);
         });
 
         // Groups
