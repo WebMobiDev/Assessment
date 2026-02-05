@@ -121,7 +121,12 @@ dotnet run --project .\src\Web --urls http://localhost:5158
 
 -------------------------------------------------------------------------------------------------------------------
 
-### Running Tests
+## Running Tests
+
+### Prerequisites
+
+- .NET SDK 8 installed
+
 ## Run all tests (recommended)
 ```Bash
 dotnet test .\Assessment.sln
